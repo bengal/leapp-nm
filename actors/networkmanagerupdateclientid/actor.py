@@ -6,6 +6,13 @@ import gi
 gi.require_version('NM', '1.0')
 from gi.repository import GLib, NM
 
+# When using dhcp=dhclient on RHEL7, a non-hexadecimal client-id (a
+# string) is sent on the wire as is (i.e. the first character is the
+# 'type' as per RFC 2132 section 9.14). On RHEL8, a zero byte is
+# prepended to string-only client-ids. To preserve behavior on
+# upgrade, we convert client-ids to the hexadecimal form when dhclient
+# is in use.
+
 class NetworkManagerUpdateClientId(Actor):
     name = 'network_manager_update_client_id'
     description = 'This actor updates DHCP client-ids when migrating to RHEL8'
