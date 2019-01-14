@@ -46,13 +46,11 @@ class NetworkManagerUpdateService(Actor):
             enabled = False
         return enabled
 
-    def call(self, args, split=True):
+    def call(self, args):
         r = None
         with open(os.devnull, mode='w') as err:
             if six.PY3:
                 r = subprocess.check_output(args, stderr=err, encoding='utf-8')
             else:
                 r = subprocess.check_output(args, stderr=err).decode('utf-8')
-        if split:
-            return r.splitlines()
-        return r
+        return r.splitlines()
