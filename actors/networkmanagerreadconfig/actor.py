@@ -1,6 +1,6 @@
 from leapp.actors import Actor
 from leapp.models import NetworkManagerConfig
-from leapp.tags import FactsPhaseTag
+from leapp.tags import IPUWorkflowTag, FactsPhaseTag
 import subprocess
 import io
 
@@ -14,7 +14,7 @@ class NetworkManagerReadConfig(Actor):
     description = 'This actor reads NetworkManager configuration.'
     consumes = ()
     produces = (NetworkManagerConfig,)
-    tags = (FactsPhaseTag,)
+    tags = (IPUWorkflowTag, FactsPhaseTag,)
 
     def process(self):
         try:
@@ -39,5 +39,4 @@ class NetworkManagerReadConfig(Actor):
         if parser.has_option('logging', 'level'):
             nm_config.log_level = parser.get("logging", "level")
 
-        self.log.info('Finished reading NetworkManager configuration')
         self.produce(nm_config)

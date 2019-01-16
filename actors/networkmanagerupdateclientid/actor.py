@@ -43,7 +43,7 @@ class NetworkManagerUpdateClientId(Actor):
                             self.log.info('  * new client-id : {}'.format(new_client_id))
                             s_ip4.set_property(NM.SETTING_IP4_CONFIG_DHCP_CLIENT_ID, new_client_id)
                             if not c.commit_changes(True, None):
-                                self.log.warning('Failed to update client-id for connection {}'.format(c.get_uuid())
+                                self.log.warning('Failed to update client-id for connection {}'.format(c.get_uuid()))
             break
 
     def is_hexstring(self, s):
